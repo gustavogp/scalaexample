@@ -1,6 +1,7 @@
 package com.onprem
 
 //import scala.util.matching.Regex
+import scala.collection.immutable.List
 
 sealed trait Option[+A] {
   def map[B](f: A => B): Option[B] = this match{
@@ -47,4 +48,15 @@ object Chapter4 extends App{
   val mult = num.map(_*2)
   println(mult.orElse(Some(-1)))
 
+  //ex. 4
+  def mean(list: scala.collection.immutable.List[Float]): scala.collection.immutable.List[Float] = {
+    scala.collection.immutable.List(list.sum / list.length)
+  }
+
+  def variance(xs:scala.collection.immutable.List[Float]): Option[Float] = {
+   Some(mean(xs).flatMap(m => mean(xs.map((x) => math.pow(x-m,2).toFloat))).head)
+  }
+
+ // println(mean(scala.collection.immutable.List(1,2,3,6)))
+  println(variance(scala.collection.immutable.List(1f,2,3,6)).getOrElse(-1.0))
 }

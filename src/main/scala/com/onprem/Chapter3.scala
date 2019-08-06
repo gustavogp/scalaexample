@@ -65,6 +65,12 @@ object List {
   def product2(ns: List[Double]):Double =
     foldRight(ns, 1.0)(_ * _)
 
+  def length (ns: List[Int], z:Int): Int = {
+    ns match {
+      case Nil => z
+      case Cons(h, t) => length(t, z+1)
+    }
+  }
 
 }
 
@@ -84,10 +90,10 @@ object App extends App {
 //  println(List.init(List(1,2,3,4)))
   println(List.foldRight(List(1,2,3), Nil:List[Int])(Cons(_,_)))
   println(List.foldRight(List(1,2,3,4,5),1)(_*_))
+  println(List.length(List(1,2,3), 0))
 }
 
 //exercise 2: it's a constant time because it always returns a reference to the first element of the tail, regardless of how long the list is
 
 //exercise 4
-
 
